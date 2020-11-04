@@ -5,9 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import dagger.hilt.android.AndroidEntryPoint
 import xyz.people.R
 import xyz.people.databinding.MainFragmentBinding
@@ -56,10 +59,9 @@ class MainFragment : Fragment() {
                 }
                 is ResultState.Success -> {
                     bindData(it.data)
-                    Log.e("loading", it.toString())
                 }
                 is ResultState.Error -> {
-                    Log.e("loading", ":)")
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }
             binding?.swiperefresh!!.isRefreshing = false
@@ -69,10 +71,19 @@ class MainFragment : Fragment() {
     private fun setupUi() {
         binding?.let { it.swiperefresh.setOnRefreshListener {
             viewModel.retry()
+
         } }
     }
 
     private fun bindData(user: UserView) {
-        binding?.let { it.button.text = user.country }
+        binding?.let {
+            Glide.with(binding!!.root)
+                .load(user.pictureUrl)
+                .transform(CircleCrop())
+                .into(binding!!.imageView2)
+
+            it.textView2.text = user.name
+            it.textView.text = user.info
+        }
     }
 }

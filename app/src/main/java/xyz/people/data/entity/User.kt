@@ -34,5 +34,5 @@ data class Login(
 )
 
 data class Picture(
-    val medium: String
+    val large: String
 )
