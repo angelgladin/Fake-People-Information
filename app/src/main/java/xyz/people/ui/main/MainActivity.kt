@@ -1,9 +1,11 @@
-package xyz.people
+package xyz.people.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import xyz.people.ui.main.MainFragment
+import dagger.hilt.android.AndroidEntryPoint
+import xyz.people.R
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
