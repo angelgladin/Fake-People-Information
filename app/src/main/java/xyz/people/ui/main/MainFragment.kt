@@ -64,15 +64,17 @@ class MainFragment : Fragment() {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }
-            binding?.swiperefresh!!.isRefreshing = false
+            binding?.swipeRefresh!!.isRefreshing = false
         })
     }
 
     private fun setupUi() {
-        binding?.let { it.swiperefresh.setOnRefreshListener {
-            viewModel.retry()
+        binding?.let {
+            it.swipeRefresh.setOnRefreshListener {
+                viewModel.retry()
 
-        } }
+            }
+        }
     }
 
     private fun bindData(user: UserView) {
@@ -80,10 +82,10 @@ class MainFragment : Fragment() {
             Glide.with(binding!!.root)
                 .load(user.pictureUrl)
                 .transform(CircleCrop())
-                .into(binding!!.imageView2)
+                .into(binding!!.imageProfile)
 
-            it.textView2.text = user.name
-            it.textView.text = user.info
+            it.labelName.text = user.name
+            it.labelInfo.text = user.info
         }
     }
 }

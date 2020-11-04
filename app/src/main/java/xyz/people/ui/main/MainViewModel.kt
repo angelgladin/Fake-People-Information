@@ -6,7 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import xyz.people.data.RandomUserService
 import xyz.people.ui.main.entity.UserView
 import xyz.people.util.ResultState
-import java.lang.StringBuilder
 
 class MainViewModel @ViewModelInject constructor(
     private val randomUserService: RandomUserService
