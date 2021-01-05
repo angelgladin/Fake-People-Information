@@ -59,12 +59,13 @@ class MainFragment : Fragment() {
                 }
                 is ResultState.Success -> {
                     bindData(it.data)
+                    binding?.swipeRefresh!!.isRefreshing = false
                 }
                 is ResultState.Error -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    binding?.swipeRefresh!!.isRefreshing = false
                 }
             }
-            binding?.swipeRefresh!!.isRefreshing = false
         })
     }
 
@@ -72,8 +73,8 @@ class MainFragment : Fragment() {
         binding?.let {
             it.swipeRefresh.setOnRefreshListener {
                 viewModel.retry()
-
             }
+            it.swipeRefresh.isRefreshing = true
         }
     }
 
